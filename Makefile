@@ -17,6 +17,8 @@ OS = $(TOOLCHAIN)/bin/arm-none-eabi-size
 ASFLAGS += -c
 ASFLAGS += -O0
 ASFLAGS += -mcpu=$(MCU_SPEC)
+ASFLAGS += -mfloat-abi=hard
+ASFLAGS += -mfpu=fpv4-sp-d16
 ASFLAGS += -mthumb
 ASFLAGS += -Wall
 
@@ -26,14 +28,16 @@ ASFLAGS += -fmessage-length=0
 # C compilation directives
 CFLAGS += -mcpu=$(MCU_SPEC)
 CFLAGS += -mthumb
+CFLAGS += -mfloat-abi=hard
+CFLAGS += -mfpu=fpv4-sp-d16
 CFLAGS += -Wall
 CFLAGS += -g
 
 # (Set error messages to appear on a single line.)
-CFLAGS += -fmessage-length=0
+CFLAGS += -fmessage-length=0 -flto -fdata-sections -ffunction-sections  
 
 # (Set system to ignore semihosted junk)
-CFLAGS += --specs=nosys.specs
+CFLAGS += --specs=nosys.specs -flto -fdata-sections -ffunction-sections
 
 # Linker directives.
 LSCRIPT = ./$(LD_SCRIPT)

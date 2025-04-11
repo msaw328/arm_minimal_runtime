@@ -185,6 +185,16 @@ reset_bss_loop:
     // done, reset the next word and increment.
     CMP  r1, r2
     BCC  reset_bss
+    // Turn on the FPU (Cortex-M4 Reference Manual 7.3.1)
+    // CPACR is located at address 0xE000ED88
+    LDR.W R0, =0xE000ED88
+    // Read CPACR
+    LDR R1, [R0]
+    // Set bits 20-23 to enable CP10 and CP11 coprocessors
+    ORR R1, R1, #(0xF << 20)
+    // Write back the modified value to the CPACR
+    STR R1, [R0]
+
     // Branch to the 'main' method.
     B    main
 .size RESET_handler, .-RESET_handler

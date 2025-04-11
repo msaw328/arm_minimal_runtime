@@ -82,3 +82,12 @@ This seems to be confirmed in https://github.com/ARM-software/CMSIS_4/blob/maste
 
 Here is some good answer on why to enable in both places:
 https://community.st.com/t5/stm32-mcus-products/diffrence-between-enabling-interrupt-in-nvic-and-enabling/td-p/484836
+
+For easy uart over USB: board manual mb1136 6.8 says PA2 nad PA3 are connected to st-link, and it is also
+shown on schematic. By default (and factually) SB13 and SB14 are connected, while SB62 and SB63 are disconnected.
+This is the USART2 interface.
+
+Forgot that it is necessary to set PA2 and PA3 in Alternate Function mode, so theyre USART not GPIO!
+https://wiki.st.com/stm32mcu/wiki/Getting_started_with_UART#GPIO_Configuration
+https://vivonomicon.com/2020/06/28/bare-metal-stm32-programming-part-10-uart-communication/
+
